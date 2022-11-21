@@ -8,7 +8,7 @@ Language: Python
    - [x] It should support the same three end-points (people/xx/, planets/xx/, starships/xx/)
    - [x] It can always return the same json response for any id passed.
    - [x] For some specific ids e.g. >100 should  return a 404 Not Found error with a json body that describes the problem.
-   - [ ] The server should keep a log file that logs all the incoming requested URLs and response codes.
+   - [x] The server should keep a log file that logs all the incoming requested URLs and response codes.
 2. [ ] Create an automated test suite (using test framework like Robot Framework) that:
     - [ ] prepares the test environment by starting the http server
     - [ ] runs test cases per end-point that verify both happy path (sends back a valid json response with the expected values) or edge cases (e.g. id not found)

@@ -1,8 +1,14 @@
 import json
+import logging
 
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import Optional
+
+
+logging.basicConfig(format='%(asctime)s - -%(levelname)s - %(message)s',
+                    level=logging.INFO,
+                    datefmt='%d-%b-%y %H:%M:%S:%f')
 
 app = FastAPI()
 
@@ -31,10 +37,15 @@ class Person(BaseModel):
 
 with open('./resources/people.json', 'r') as f:
     people = json.load(f)['people']
+    if people:
+        logging.info("People data loaded from json file")
+    else:
+        logging.debug("Could not load people.json file.") # not replicated
 
 
 @app.get('/people')
 def get_people():
+    logging.debug("Could not return people data.")
     return people
 
 
@@ -42,8 +53,10 @@ def get_people():
 def get_person(p_id: int):
     person = [p for p in people if p['id'] == p_id]
     if len(person) > 0:
+        logging.info(f'Found the person with id {p_id}')
         return person[0]
     else:
+        logging.warning(f'Requesting people with {p_id} not successful')
         return HTTPException(status_code=404, detail=f"person with id:{p_id} does not exist")
 
 

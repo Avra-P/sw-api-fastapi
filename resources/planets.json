@@ -1,0 +1,57 @@
+{
+  "planets": [
+    {
+      "id": 1,
+      "edited": "2014-12-20T20:58:18.411Z",
+      "climate": "arid",
+      "surface_water": "1",
+      "name": "Tatooine",
+      "diameter": "10465",
+      "rotation_period": "23",
+      "created": "2014-12-09T13:50:49.641Z",
+      "terrain": "desert",
+      "gravity": "1 standard",
+      "orbital_period": "304",
+      "population": "200000",
+      "residents": [
+        "1",
+        "2",
+        "4"
+      ]
+    },
+    {
+      "id": 2,
+      "edited": "2014-12-20T20:58:18.420Z",
+      "climate": "temperate",
+      "surface_water": "40",
+      "name": "Alderaan",
+      "diameter": "12500",
+      "rotation_period": "24",
+      "created": "2014-12-10T11:35:48.479Z",
+      "terrain": "grasslands, mountains",
+      "gravity": "1 standard",
+      "orbital_period": "364",
+      "population": "2000000000",
+      "residents": [
+        "3"
+      ]
+    },
+    {
+      "id": 8,
+      "edited": "2014-12-20T20:58:18.430Z",
+      "climate": "temperate",
+      "surface_water": "12",
+      "name": "Naboo",
+      "diameter": "12120",
+      "rotation_period": "26",
+      "created": "2014-12-10T11:52:31.066Z",
+      "terrain": "grassy hills, swamps, forests, mountains",
+      "gravity": "1 standard",
+      "orbital_period": "312",
+      "population": "4500000000",
+      "residents": [
+        "5"
+      ]
+    }
+  ]
+}

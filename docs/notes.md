@@ -114,5 +114,5 @@ The functional test cases implemented describe the simple flows of interacting w
 <br> A simple docker compose would be good enough.
 <br> With a dockerized container the whole bundle can run on every platform, with the only prerequisite being docker.
 <br> Containerizing the application and the test automation suites is important to make them infrastructure-agnostic. 
-<br> It makes it a lot easier to utilise the project in a full software life cycle process that also contains CD pipelines with tools like Jenkins or ArgoCD.
+<br> Container tools are essential to utilise the project in a full software life cycle process, that also contains CD pipelines with tools like Jenkins or ArgoCD.
 - Use a MAKEFILE to store some useful commands for both development and testing tasks.

@@ -1,6 +1,6 @@
 ### Setup
 
-- Setup my local environment. 
+- Setup local environment. 
 ```
  # Create a virtual env with venv and activate it   
 ➜  python3 -m venv .venv     
@@ -23,16 +23,16 @@ INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
 ```
-Option `uvicorn app:app --reload` restartes the server after code changes.
+Option `uvicorn app:app --reload` restarts the server after code changes.
 
 - Copied the swapi data from [swapi GitHub repo resources folder](https://github.com/phalt/swapi/tree/master/resources/fixtures), 
 into a [local folder](../resources), in order to keep them as an in-memory storage solution.
 This is a quick and simplistic storage approach. 
-<br>A much better solution would be to implement a relational database, using eg Flask or Django.
+<br>A much better solution would be to implement a relational database, using e.g. Flask or Django.
 <br>In order to keep the data of a minimal size, the json files with people, planets and starships contain only 5 entries each, keeping those based on existing relationships with the people objects.
 
 - Added 404 exception handling
-- Added a logging mechanism
+- Added a logging mechanism .
 
 ```
 ### Extract from info level log messages
@@ -48,15 +48,25 @@ INFO:     127.0.0.1:58074 - "GET /people/1 HTTP/1.1" 200 OK
 22-Nov-22 01:39:19:f - -WARNING - Requesting people with 6 not successful
 INFO:     127.0.0.1:58076 - "GET /people/6 HTTP/1.1" 200 OK
 ```
+<i>ToDo</i>: Extend logging mechanism to store logged server traffic in a dedicated file
 
 ## Instructions
-- Run command
+- Checkout project 
+- Enter a terminal , navigating inside the sw-api-fastapi repo folder
+- Run command `uvicorn app:app --reload` (reload parameter is optional)
 - When server is launched on a localhost-url, click on localUrl/docs to see the api doc. 
-For some reason error handling information is not correct but it would be interesting to find a way to fix it.
-- 
+For some reason error handling information is not correct, but it would be interesting to find a way to fix it.
+- For executing functional tests: In a separate terminal run 
+```
+➜  sw-api-fastapi git:(main) source ./venv/bin/activate # robot is a project dependency
+(venv)➜  sw-api-fastapi git:(main) robot ./tests/functional/get_people.robot
+```
 
 ## References
 - [Official FastAPI tutorial](https://github.com/phalt/swapi/tree/master/resources/fixtures)
 - [swapi Github repo data](https://github.com/phalt/swapi/tree/master/resources/fixtures)
 - [Logging in Python - RealPython](https://realpython.com/python-logging/)
 - [Logging in Python 3 - Official docs](https://docs.python.org/3/howto/logging.html)
+- Robot Framework [User Guide](https://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html)
+- [Status should be](https://robotframework-requests.netlify.app/doc/requestslibrary#Status%20Should%20Be) robot keyword
+- Robot Framework Swarm [repository](https://github.com/damies13/rfswarm) : To be used for the performance testing.

@@ -5,7 +5,6 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import Optional
 
-
 logging.basicConfig(format='%(asctime)s - -%(levelname)s - %(message)s',
                     level=logging.INFO,
                     datefmt='%d-%b-%y %H:%M:%S:%f')
@@ -18,7 +17,8 @@ def index():
     return {"This the Starwars API test project. Only  /people, /starships, /planets are supported"}
 
 
-# Handle the people related data and endpoints
+# Following classes demonstrate how a base model would look like for the 3 data categories the project supports
+# Currently they are not in use.
 class Person(BaseModel):
     id: Optional[int] = None
     edited: str
@@ -35,32 +35,6 @@ class Person(BaseModel):
     starships: list
 
 
-with open('./resources/people.json', 'r') as f:
-    people = json.load(f)['people']
-    if people:
-        logging.info("People data loaded from json file")
-    else:
-        logging.debug("Could not load people.json file.") # not replicated
-
-
-@app.get('/people')
-def get_people():
-    logging.debug("Could not return people data.")
-    return people
-
-
-@app.get('/people/{p_id}')
-def get_person(p_id: int):
-    person = [p for p in people if p['id'] == p_id]
-    if len(person) > 0:
-        logging.info(f'Found the person with id {p_id}')
-        return person[0]
-    else:
-        logging.warning(f'Requesting people with {p_id} not successful')
-        return HTTPException(status_code=404, detail=f"person with id:{p_id} does not exist")
-
-
-# Handle the starship related data and endpoints
 class Starship(BaseModel):
     id: Optional[int] = None
     model: str
@@ -80,25 +54,6 @@ class Starship(BaseModel):
     edited: str
 
 
-with open('./resources/starships.json', 'r') as f:
-    starships = json.load(f)['starships']
-
-
-@app.get('/starships')
-def get_starships():
-    return starships
-
-
-@app.get('/starships/{s_id}')
-def get_starship(s_id: int):
-    # todo handle 404 error
-    starship = [p for p in people if p['id'] == s_id]
-    if len(starship) > 0:
-        return starship[0]
-    else:
-        return HTTPException(status_code=404, detail=f"starship with id:{s_id} does not exist")
-
-
 # Handle the planet related data and endpoints
 class Planet(BaseModel):
     id: Optional[int] = None
@@ -116,6 +71,55 @@ class Planet(BaseModel):
     residents: list
 
 
+# Handle the people related data and endpoints
+with open('./resources/people.json', 'r') as f:
+    people = json.load(f)['people']
+    if people:
+        logging.info("People data loaded from json file")
+    else:
+        logging.debug("Could not load people.json file.")  # not replicated
+
+
+@app.get('/people')
+def get_people():
+    logging.debug("Could not return people data.")
+    return people
+
+
+@app.get('/people/{p_id}')
+async def get_person(p_id: int):
+    person = [p for p in people if p['id'] == p_id]
+    logging.debug(f"Requesting person with if{p_id}")
+    if len(person) <= 0:
+        logging.debug(f"Planet with ID {p_id} not found")
+        raise HTTPException(status_code=404, detail=f"person does not exist")
+    else:
+        logging.info(f"Planet with ID {p_id} found")
+        return person[0]
+
+
+# Handle the starship related data and endpoints
+with open('./resources/starships.json', 'r') as f:
+    starships = json.load(f)['starships']
+
+
+@app.get('/starships')
+def get_starships():
+    return starships
+
+
+@app.get('/starships/{s_id}')
+async def get_starship(s_id: int):
+    starship = [p for p in starships if p['id'] == s_id]
+    logging.debug(f"Requesting starship with idf{s_id}")
+    if len(starship) <= 0:
+        logging.debug(f"Starship with ID {s_id} not found")
+        raise HTTPException(status_code=404, detail=f"starship does not exist")
+    else:
+        logging.info(f"Starship with ID {s_id} found")
+        return starships[0]
+
+
 with open('./resources/planets.json', 'r') as f:
     planets = json.load(f)['planets']
 
@@ -126,10 +130,12 @@ def get_planets():
 
 
 @app.get('/planets/{p_id}')
-def get_planets(p_id: int):
-    # todo handle 404 error
+async def get_planet(p_id: int):
     planet = [p for p in planets if p['id'] == p_id]
-    if len(planets) > 0:
-        return planet[0]
+    logging.debug(f"Requesting planet with id{p_id}")
+    if len(planet) <= 0:
+        logging.debug(f"Planet with ID {p_id} not found")
+        raise HTTPException(status_code=404, detail=f"planet does not exist")
     else:
-        return HTTPException(status_code=404, detail=f"planet with id:{p_id} does not exist")
+        logging.info(f"Planet with ID {p_id} found")
+        return planet[0]

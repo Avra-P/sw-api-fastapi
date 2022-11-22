@@ -1,3 +1,14 @@
+# IDEs
+.idea
+.DS_Store
+docs/.DS_Store
+docs/images/.DS_Store
+
+#Robot-framework generated files
+log.html
+output.xml
+report.html
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

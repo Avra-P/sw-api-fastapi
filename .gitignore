@@ -1,6 +1,11 @@
 # IDEs
 .idea
 
+#Robot-framework generated files
+log.html
+output.xml
+report.html
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
